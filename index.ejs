@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reino dos Cristais - Jogo de Aventura</title>
+    
+    
+    <meta name="description" content="Embarque em uma jornada épica através de terras mágicas no Reino dos Cristais. Jogo de aventura com combate estratégico e mundo expansivo.">
+    <meta name="keywords" content="jogo, aventura, RPG, fantasia, cristais, pré-venda">
+    <meta property="og:title" content="Reino dos Cristais - Jogo de Aventura">
+    <meta property="og:description" content="Junte-se à aventura épica no Reino dos Cristais. Disponível em pré-venda com 30% de desconto!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80">
+    
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --bg-gradient: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+            --hero-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+        }
+        
+        .hero-pattern {
+            background-image: var(--hero-image);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            background-attachment: fixed;
+        }
+        
+        .chat-container {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        
+        .chat-container.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .video-container {
+            aspect-ratio: 16/9;
+        }
+        
+        .pre-order-badge {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        
+        @media (max-width: 768px) {
+            .hero-pattern {
+                background-attachment: scroll;
+            }
+            
+            .chat-container {
+                width: 90vw;
+                right: 5vw;
+            }
+        }
+    </style>
+    
+    
+    <script src="https://cdn.tailwindcss.com" defer></script>
+</head>
+
+<body class="text-white">
+  
+    <nav class="navbar bg-base-100/90 fixed top-0 z-50 backdrop-blur-sm">
+        <div class="flex-1">
+            <a href="/" class="btn btn-ghost normal-case text-xl text-primary hover:bg-primary/10">
+                <i class="fas fa-gem mr-2"></i> Reino dos Cristais
+            </a>
+        </div>
+        <div class="flex-none gap-2">
+            <button class="btn btn-primary hover:bg-primary-focus">
+                <i class="fas fa-sign-in-alt mr-2"></i> Entrar
+            </button>
+            <button id="theme-toggle" class="btn btn-ghost btn-circle hover:bg-base-200">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+   
+    <header class="hero min-h-screen hero-pattern">
+        <div class="hero-overlay bg-opacity-80 bg-base-100"></div>
+        <div class="hero-content text-center">
+            <div class="max-w-4xl animate-fade-in">
+                <h1 class="mb-8 text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                    Reino dos Cristais
+                </h1>
+                <p class="mb-8 text-lg md:text-xl opacity-90 leading-relaxed">
+                    Embarque em uma jornada épica através de terras mágicas, onde cristais antigos detêm o poder de salvar ou destruir o mundo.
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button class="btn btn-primary btn-lg hover:scale-105 transition-transform">
+                        <i class="fas fa-play mr-2"></i> Jogar Agora
+                    </button>
+                    <button class="btn btn-secondary btn-lg hover:scale-105 transition-transform">
+                        <i class="fas fa-book mr-2"></i> Saiba Mais
+                    </button>
+                    <button id="assistant-btn" class="btn btn-accent btn-lg hover:scale-105 transition-transform">
+                        <i class="fas fa-robot mr-2"></i> Assistente
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    <section class="py-16 px-4 md:px-8 bg-base-200">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">
+                Assista ao Trailer Oficial
+            </h2>
+            
+            <div class="video-container shadow-2xl rounded-box bg-black overflow-hidden">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                        title="Trailer do Reino dos Cristais" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen loading="lazy"></iframe>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="btn btn-primary btn-wide hover:scale-105 transition-transform">
+                    <i class="fab fa-youtube mr-2"></i> Inscreva-se no Canal
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-16 px-4 md:px-8 bg-gradient-to-br from-primary to-secondary">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-1">
+                    <div class="badge badge-accent pre-order-badge mb-4 text-white">
+                        PRÉ-VENDA DISPONÍVEL
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        Garanta sua Edição Especial com <span class="text-accent">30% de desconto</span>
+                    </h2>
+                    <p class="mb-6 text-lg leading-relaxed">
+                        Reserve agora e receba benefícios exclusivos quando o jogo for lançado em 15 de maio de 2025.
+                    </p>
+                    
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-accent"></i>
+                            <span>Acesso antecipado à beta fechada</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-accent"></i>
+                            <span>Pacote de itens exclusivos para seu personagem</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-accent"></i>
+                            <span>Manual digital do jogo com arte conceitual</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check-circle text-accent"></i>
+                            <span>Nome incluído nos créditos como apoiador</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn btn-accent btn-lg flex-1 hover:scale-105 transition-transform">
+                            <i class="fas fa-shopping-cart mr-2"></i> Comprar Agora
+                        </button>
+                        <button class="btn btn-outline btn-lg flex-1 text-white hover:text-primary hover:scale-105 transition-transform">
+                            <i class="fas fa-gift mr-2"></i> Presentear
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex-1">
+                    <div class="card bg-base-100 shadow-2xl card-hover">
+                        <figure>
+                            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                                 alt="Edição Colecionador do Reino dos Cristais" 
+                                 class="w-full h-64 object-cover" loading="lazy">
+                        </figure>
+                        <div class="card-body">
+                            <h3 class="card-title text-2xl">Edição Colecionador</h3>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="flex items-center">
+                                    <span class="text-3xl font-bold text-primary">R$ 89,90</span>
+                                    <span class="text-sm line-through opacity-70 ml-2">R$ 129,90</span>
+                                </div>
+                                <span class="badge badge-secondary">30% OFF</span>
+                            </div>
+                            <p class="text-sm opacity-80 mb-4">Inclui todos os benefícios da pré-venda mais itens físicos exclusivos.</p>
+                            <div class="card-actions justify-end">
+                                <button class="btn btn-primary btn-sm">Detalhes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="py-16 px-4 md:px-8 bg-base-100/90">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                Explore um Mundo Mágico
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card bg-base-200 shadow-xl card-hover">
+                    <figure class="px-4 pt-4">
+                        <img src="https://images.unsplash.com/photo-1518709766631-a6a7f45921c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                             alt="Personagens do Reino dos Cristais" 
+                             class="rounded-xl h-48 w-full object-cover" loading="lazy">
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <i class="fas fa-users mr-2"></i> Personagens Únicos
+                        </h3>
+                        <p>Escolha entre 6 classes diferentes, cada uma com habilidades especiais e histórias cativantes.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-200 shadow-xl card-hover">
+                    <figure class="px-4 pt-4">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                             alt="Combate no Reino dos Cristais" 
+                             class="rounded-xl h-48 w-full object-cover" loading="lazy">
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-secondary">
+                            <i class="fas fa-swords mr-2"></i> Combate Estratégico
+                        </h3>
+                        <p>Sistema de batalha por turnos com mais de 100 habilidades diferentes para dominar.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-200 shadow-xl card-hover">
+                    <figure class="px-4 pt-4">
+                        <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+                             alt="Mundo do Reino dos Cristais" 
+                             class="rounded-xl h-48 w-full object-cover" loading="lazy">
+                    </figure>
+                    <div class="card-body">
+                        <h3 class="card-title text-accent">
+                            <i class="fas fa-map-marked-alt mr-2"></i> Mundo Expansivo
+                        </h3>
+                        <p>Explore 5 reinos distintos, cada um com sua própria cultura, desafios e segredos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-16 px-4 md:px-8 bg-gradient-to-br from-base-100 to-base-200">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">
+                O Que Os Jogadores Dizem
+            </h2>
+            
+            <div class="carousel w-full rounded-box">
+                <div class="carousel-item w-full">
+                    <div class="card bg-base-200 w-full">
+                        <div class="card-body">
+                            <div class="flex items-center mb-4">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" 
+                                             alt="Ana Silva" loading="lazy">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Ana Silva</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"A história é incrivelmente envolvente! Passei horas explorando cada canto do mundo e ainda tenho muito para descobrir."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item w-full">
+                    <div class="card bg-base-200 w-full">
+                        <div class="card-body">
+                            <div class="flex items-center mb-4">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" 
+                                             alt="Carlos Oliveira" loading="lazy">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Carlos Oliveira</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"O sistema de combate é desafiador e recompensador. Cada vitória parece uma conquista real!"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-item w-full">
+                    <div class="card bg-base-200 w-full">
+                        <div class="card-body">
+                            <div class="flex items-center mb-4">
+                                <div class="avatar mr-4">
+                                    <div class="w-12 rounded-full">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" 
+                                             alt="Mariana Costa" loading="lazy">
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Mariana Costa</h4>
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>"Os gráficos são lindos e a trilha sonora é perfeita. Totalmente imersivo!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-16 px-4 md:px-8 bg-primary/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para Começar Sua Jornada?</h2>
+            <p class="mb-8 text-lg opacity-90 leading-relaxed">
+                Junte-se a milhões de aventureiros em uma experiência que você nunca vai esquecer.
+            </p>
+            <button class="btn btn-secondary btn-lg hover:scale-105 transition-transform">
+                <i class="fas fa-download mr-2"></i> Baixar Agora
+            </button>
+        </div>
+    </section>
+
+    
+    <footer class="footer p-10 bg-base-200 text-base-content">
+        <div>
+            <span class="footer-title">
+                <i class="fas fa-gem mr-2"></i> Reino dos Cristais
+            </span> 
+            <a href="#" class="link link-hover hover:text-primary">Sobre o Jogo</a>
+            <a href="#" class="link link-hover hover:text-primary">Personagens</a>
+            <a href="#" class="link link-hover hover:text-primary">História</a>
+            <a href="#" class="link link-hover hover:text-primary">Galeria</a>
+        </div> 
+        <div>
+            <span class="footer-title">Recursos</span> 
+            <a href="#" class="link link-hover hover:text-primary">Guia do Jogador</a>
+            <a href="#" class="link link-hover hover:text-primary">Fórum</a>
+            <a href="#" class="link link-hover hover:text-primary">Atualizações</a>
+            <a href="#" class="link link-hover hover:text-primary">Wiki</a>
+        </div> 
+        <div>
+            <span class="footer-title">Legal</span> 
+            <a href="#" class="link link-hover hover:text-primary">Termos de Uso</a>
+            <a href="#" class="link link-hover hover:text-primary">Política de Privacidade</a>
+            <a href="#" class="link link-hover hover:text-primary">Política de Cookies</a>
+        </div>
+    </footer>
+    
+    <footer class="footer px-10 py-4 border-t bg-base-200 text-base-content border-base-300">
+        <div class="items-center grid-flow-col">
+            <p>© 2025 Reino dos Cristais. Todos os direitos reservados.</p>
+        </div> 
+        <div class="md:place-self-center md:justify-self-end">
+            <div class="grid grid-flow-col gap-4">
+                <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-twitter text-xl"></i></a> 
+                <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-instagram text-xl"></i></a> 
+                <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+                <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-discord text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="assistant-toggle" class="btn btn-circle btn-primary btn-lg shadow-xl hover:scale-110 transition-transform">
+            <i class="fas fa-robot text-2xl"></i>
+        </button>
+        
+        <div class="chat-container absolute bottom-20 right-0 w-80 h-96 bg-base-100 rounded-box shadow-2xl overflow-hidden flex flex-col border border-base-300">
+            <div class="flex items-center justify-between p-4 bg-primary text-primary-content">
+                <div class="flex items-center">
+                    <div class="avatar">
+                        <div class="w-10 rounded-full bg-secondary">
+                            <i class="fas fa-robot m-auto text-lg"></i>
+                        </div>
+                    </div>
+                    <h3 class="ml-3 font-bold">Assistente Virtual</h3>
+                </div>
+                <button id="close-chat" class="btn btn-ghost btn-xs hover:bg-primary-focus">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto">
+                <div class="chat chat-start">
+                    <div class="chat-image avatar">
+                        <div class="w-10 rounded-full bg-secondary">
+                            <i class="fas fa-robot m-auto text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="chat-bubble bg-base-300">
+                        Olá, aventureiro! Sou o assistente do Reino dos Cristais. Como posso te ajudar hoje?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-base-300">
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" placeholder="Digite sua mensagem..." 
+                           class="input input-bordered flex-1 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <button id="send-message" class="btn btn-primary hover:bg-primary-focus">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const elements = {
+                themeToggle: document.getElementById('theme-toggle'),
+                html: document.documentElement,
+                chatContainer: document.querySelector('.chat-container'),
+                assistantToggle: document.getElementById('assistant-toggle'),
+                closeChat: document.getElementById('close-chat'),
+                chatMessages: document.getElementById('chat-messages'),
+                chatInput: document.getElementById('chat-input'),
+                sendMessage: document.getElementById('send-message'),
+                assistantBtn: document.getElementById('assistant-btn')
+            };
+
+            
+            elements.themeToggle.addEventListener('click', function() {
+                const newTheme = elements.html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                elements.html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                this.innerHTML = newTheme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+            });
+
+           
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            elements.html.setAttribute('data-theme', savedTheme);
+            elements.themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+
+            
+            function toggleChat() {
+                elements.chatContainer.classList.toggle('open');
+                elements.assistantToggle.classList.toggle('btn-primary');
+                elements.assistantToggle.classList.toggle('btn-secondary');
+            }
+
+            elements.assistantToggle.addEventListener('click', toggleChat);
+            elements.closeChat.addEventListener('click', toggleChat);
+            elements.assistantBtn.addEventListener('click', function() {
+                if (!elements.chatContainer.classList.contains('open')) {
+                    toggleChat();
+                }
+            });
+
+            
+            const aiResponses = {
+                "oi": "Olá, aventureiro! Bem-vindo ao Reino dos Cristais. Pronto para começar sua jornada épica?",
+                "como jogar": "O jogo é uma aventura por turnos. Você pode explorar o mundo, lutar contra inimigos e completar missões. Use os botões de ação para interagir com o mundo!",
+                "classes": "Temos 6 classes: Guerreiro (combate corpo a corpo), Mago (magias poderosas), Arqueiro (ataques à distância), Clérigo (cura e suporte), Ladino (furtividade) e Druida (controle da natureza). Cada uma tem habilidades únicas!",
+                "história": "O mundo está ameaçado pela escuridão que corrompe os Cristais Elementais. Você deve reunir os cristais para restaurar o equilíbrio! A jornada passa por 5 reinos distintos com culturas e desafios únicos.",
+                "comandos": "No jogo você pode usar: Explorar (descobrir novas áreas), Atacar (combate), Defender (proteção), Usar Habilidade (habilidades especiais), Acessar Inventário (gerenciar itens) e Conversar com NPCs (interagir com personagens).",
+                "pré-venda": "A pré-venda está disponível com 30% de desconto! Benefícios exclusivos:<br>- Acesso antecipado à beta<br- Itens exclusivos<br>- Manual digital<br>- Seu nome nos créditos<br>Digite 'comprar' para saber mais!",
+                "comprar": "Você pode comprar a edição especial:<br>1. Visite nossa loja online<br>2. Escolha a Edição Colecionador<br>3. Finalize seu pedido<br>4. Receba acesso imediato aos benefícios!<br>Dúvidas? Pergunte mais!",
+                "default": "Desculpe, não entendi. Posso te ajudar com:<br>- Informações sobre o jogo<br>- Detalhes das classes<br- História do mundo<br>- Sistema de combate<br>- Pré-venda e compras<br>O que você gostaria de saber?"
+            };
+
+            function addMessage(isUser, message) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat ${isUser ? 'chat-end' : 'chat-start'}`;
+                
+                messageDiv.innerHTML = `
+                    <div class="chat-image avatar">
+                        <div class="w-10 rounded-full ${isUser ? 'bg-accent' : 'bg-secondary'}">
+                            <i class="fas ${isUser ? 'fa-user' : 'fa-robot'} m-auto text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="chat-bubble ${isUser ? 'bg-accent text-accent-content' : 'bg-base-300'}">
+                        ${message}
+                    </div>
+                `;
+                
+                elements.chatMessages.appendChild(messageDiv);
+                elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
+            }
+
+            function getAIResponse(message) {
+                const lowerMsg = message.toLowerCase();
+                let response = aiResponses.default;
+                
+                if (/^(oi|olá|ola|hello|hi)$/.test(lowerMsg)) response = aiResponses.oi;
+                else if (lowerMsg.includes('como jogar') || lowerMsg.includes('jogar')) response = aiResponses["como jogar"];
+                else if (lowerMsg.includes('classe') || lowerMsg.includes('personagem')) response = aiResponses.classes;
+                else if (lowerMsg.includes('história') || lowerMsg.includes('historia') || lowerMsg.includes('enredo')) response = aiResponses.história;
+                else if (lowerMsg.includes('comando') || lowerMsg.includes('controle') || lowerMsg.includes('ação')) response = aiResponses.comandos;
+                else if (lowerMsg.includes('pré-venda') || lowerMsg.includes('pre-venda') || lowerMsg.includes('vantagem')) response = aiResponses["pré-venda"];
+                else if (lowerMsg.includes('comprar') || lowerMsg.includes('adquirir') || lowerMsg.includes('compra')) response = aiResponses.comprar;
+                
+               
+                setTimeout(() => {
+                    addMessage(false, response);
+                }, 500 + Math.random() * 1000);
+            }
+
+            function handleSendMessage() {
+                const message = elements.chatInput.value.trim();
+                if (message) {
+                    addMessage(true, message);
+                    elements.chatInput.value = '';
+                    getAIResponse(message);
+                }
+            }
+
+            elements.sendMessage.addEventListener('click', handleSendMessage);
+
+            elements.chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
+            });
+
+            
+            elements.chatContainer.classList.remove('open');
+        });
+    </script>
+</body>
+</html>
